@@ -1,0 +1,299 @@
+<html>
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />
+  <!--link rel="stylesheet" type="text/css" href="style.css"-->
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6XaqrE4rLEskBpcUihpdDw3kRaW70pj8"
+        type="text/javascript"></script> -->
+  <!-- <script src="main.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.datetimepicker.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">View Map</a>
+      </li>
+      <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+             -->
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>Stacked form</h2>
+    <form id="userForm" action="http://localhost:3000/onSubmit" method="POST">
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" id="city" placeholder="Enter City" name="city">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <div class="checkbox">
+              <label></label><input type="checkbox" id="infected" name="infected" value=""> Is Infected</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row after-add-more">
+        <div class="col">
+          <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" class="form-control" id="location" placeholder="Enter Location" name="location">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label for="from">From:</label>
+            <!--input type="text" class="form-control" id="from" placeholder="From" name="from"-->
+            <input class="form-control" type="datetime-local" autocomplete="off" id="from" name="from">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label for="to">To:</label>
+            <!--input type="text" class="form-control" id="to" placeholder="To" name="to"-->
+            <input class="form-control" type="datetime-local" autocomplete="off" id="to" name="to">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <div class="input-group-btn">
+              <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i>
+                Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
+    </form>
+    <!-- Copy Fields -->
+    <div class="copy d-none">
+      <div class="control-group form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" class="form-control" id="location" placeholder="Enter Location" name="location">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label for="from">From:</label>
+            <!--input type="text" class="form-control" id="from" placeholder="From" name="from"-->
+            <input class="form-control" type="datetime-local" autocomplete="off" id="from" name="from">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="to">To:</label>
+            <!--input type="text" class="form-control" id="to" placeholder="To" name="to"-->
+            <input class="form-control" type="datetime-local" autocomplete="off" id="to" name="to">
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group-btn">
+            <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i>
+              Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+      $(".add-more").click(function () {
+        var html = $(".copy").html();
+        $(".after-add-more").after(html);
+      });
+
+
+      $("body").on("click", ".remove", function () {
+        $(this).parents(".control-group").remove();
+      });
+    });
+    
+    $("#submitButton").click(() => {
+
+      /* Pre process the user data and send to back end */
+
+      console.log("Button clicked");
+
+      var userData = {
+        PersonID: Number,
+        PersonName: String,
+        Address: String,
+        City: String,
+        Infected: Boolean
+      }
+
+      userData.PersonID = +document.getElementById("id").value;
+      userData.PersonName = document.getElementById("name").value;
+      userData.Address = document.getElementById("address").value;
+      userData.City = document.getElementById("city").value;
+      userData.Infected = (document.getElementById("infected").checked) ? 1 : 0;
+
+      console.log(userData);
+
+      addPersonDetails(userData);
+
+      /***************************************************************************************************************/
+
+      // Add Travel Details
+
+      var locationArray = [];
+
+      var locations = [];
+      var fromTime = [];
+      var toTime = [];
+
+      document.getElementsByName("location").forEach((d) => {
+        locations.push(d.value);
+      });
+
+      document.getElementsByName("from").forEach((d) => {
+        fromTime.push(d.value);
+      });
+
+      document.getElementsByName("to").forEach((d) => {
+        toTime.push(d.value);
+      });
+
+      locations = locations.slice(0, locations.length - 1);
+      fromTime = fromTime.slice(0, fromTime.length - 1);
+      toTime = toTime.slice(0, toTime.length - 1);
+
+      console.log(locations);
+      console.log(fromTime);
+      console.log(toTime);
+
+      for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+        var nolocations = locations.length;
+        var PersonID = +document.getElementById("id").value;
+        $.ajax({
+          url: 'https://maps.googleapis.com/maps/api/geocode/json?&key=AIzaSyC6XaqrE4rLEskBpcUihpdDw3kRaW70pj8&address=' + location+' Karnataka',
+          type: 'GET',
+          indexValue: i,
+          noOflocations : nolocations,
+          success: function (response) {
+            console.log(response)
+            if (response.status !== 'OK') {
+              alert("Invalid location details")
+            }
+            else {
+              var locationData = {};
+              console.log(this.indexValue);
+              locationData.PersonID = PersonID;
+              locationData.Latitude = response.results[0].geometry.location.lat;
+              locationData.Longitude = response.results[0].geometry.location.lng;
+              locationData.Address = response.results[0].formatted_address;
+              locationData.Location = locations[this.indexValue];
+              locationData.FromTime = fromTime[this.indexValue];
+              locationData.ToTime = toTime[this.indexValue];
+              locationArray.push(locationData);
+              if(locationArray.length==this.noOflocations){
+                console.log(locationArray);  
+                addTravelDetails(locationArray);
+              }
+            }
+          }
+        })    
+      }
+      
+    })
+    
+    /* Send person details to backend */
+
+    function addPersonDetails(userData) {
+      let postData = userData;
+      $.ajax({
+        url: 'http://localhost:3000/addPersonDetails',
+        type: 'POST',
+        data: postData,
+        success: function (response) {
+          console.log(response)
+          if (response == false) {
+            alert("Invalid Entries")
+            location.reload();
+          }
+          else
+            console.log('Success');
+        }
+      });
+    }
+
+    function addTravelDetails(locationArray){
+      let postData = {
+        LocationArray: locationArray
+      } 
+      $.ajax({
+        url: 'http://localhost:3000/addTravelDetails',
+        type: 'POST',
+        data: postData,
+        success: function (response) {
+          console.log(response)
+          if (response == false) {
+            alert("Invalid Entries")
+            location.reload();
+          }
+          else
+            console.log('Success');
+        }
+      });
+    }
+
+  </script>
+</body>
+
+</html>
