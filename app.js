@@ -68,6 +68,7 @@ app.post('/addPersonDetails',(req,res)=>{
 
 app.post("/addTravelDetails",(req,res)=>{
     console.log(req.body);
+    
     locationArray = req.body.LocationArray;
     for(var i=0;i<locationArray.length;i++){
         var location = locationArray[i];

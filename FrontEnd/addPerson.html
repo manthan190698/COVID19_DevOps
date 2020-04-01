@@ -53,14 +53,6 @@
       <div class="form-row">
         <div class="col">
           <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
             <label for="address">Address:</label>
             <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address">
           </div>
@@ -71,6 +63,14 @@
           <div class="form-group">
             <label for="city">City:</label>
             <input type="text" class="form-control" id="city" placeholder="Enter City" name="city">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="state">State :</label>
+            <input type="text" class="form-control" id="state" placeholder="Enter State" name="state">
           </div>
         </div>
       </div>
@@ -90,7 +90,12 @@
             <input type="text" class="form-control" id="location" placeholder="Enter Location" name="location">
           </div>
         </div>
-
+        <div class="col">
+          <div class="form-group">
+            <label for="mot">Mode of transport:</label>
+            <input type="text" class="form-control" id="mot" placeholder="Mode of transport" name="mot">
+          </div>
+        </div>
         <div class="col">
           <div class="form-group">
             <label for="from">From:</label>
@@ -127,7 +132,12 @@
             <input type="text" class="form-control" id="location" placeholder="Enter Location" name="location">
           </div>
         </div>
-
+        <div class="col">
+          <div class="form-group">
+            <label for="mot">Mode of transport:</label>
+            <input type="text" class="form-control" id="mot" placeholder="Mode of transport" name="mot">
+          </div>
+        </div>
         <div class="col">
           <div class="form-group">
             <label for="from">From:</label>
@@ -184,7 +194,7 @@
       }
 
       userData.PersonID = +document.getElementById("id").value;
-      userData.PersonName = document.getElementById("name").value;
+      userData.State = document.getElementById("state").value;
       userData.Address = document.getElementById("address").value;
       userData.City = document.getElementById("city").value;
       userData.Infected = (document.getElementById("infected").checked) ? 1 : 0;
@@ -202,6 +212,7 @@
       var locations = [];
       var fromTime = [];
       var toTime = [];
+      var modeOfTrasport = [];
 
       document.getElementsByName("location").forEach((d) => {
         locations.push(d.value);
@@ -215,6 +226,10 @@
         toTime.push(d.value);
       });
 
+      document.getElementsByName("mot").forEach((d) => {
+        modeOfTrasport.push(d.value);
+      });
+      console.log(modeOfTrasport);
       locations = locations.slice(0, locations.length - 1);
       fromTime = fromTime.slice(0, fromTime.length - 1);
       toTime = toTime.slice(0, toTime.length - 1);
@@ -247,6 +262,7 @@
               locationData.Location = locations[this.indexValue];
               locationData.FromTime = fromTime[this.indexValue];
               locationData.ToTime = toTime[this.indexValue];
+              locationData.ModeOfTransport = modeOfTrasport[this.indexValue];
               locationArray.push(locationData);
               if(locationArray.length==this.noOflocations){
                 console.log(locationArray);  
