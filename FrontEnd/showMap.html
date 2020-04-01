@@ -8,7 +8,7 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6XaqrE4rLEskBpcUihpdDw3kRaW70pj8"
     type="text/javascript"></script> -->
-    <script src="showMap.js"></script>
+    <script src="js/showMap.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="index.html">View Map</a>
+            <a class="nav-link" href="addPerson.html">Add Person</a>
           </li>
         </ul>
       </nav>
@@ -49,6 +49,12 @@
             <div class="form-group">
                 <!-- <label for="datetimepicker">To:</label> -->
                 <button type="button" class="btn btn-primary" onclick="getData()">Search</button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <!-- <label for="datetimepicker">To:</label> -->
+                <button type="button" class="btn btn-primary" onclick="plotTracks()">Plot Tracks</button>
             </div>
         </div>
     </div>

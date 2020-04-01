@@ -49,29 +49,33 @@ app.post("/onSubmit",(req,res)=>{
     res.send("Success");
 })
 
+
+
 app.post('/addPersonDetails',(req,res)=>{
     console.log(req.body);
     sql = "Insert Into Person_Details values(?,?,?,?,?)"
-    con.query(sql,[req.body.PersonID,req.body.PersonName,req.body.Address,req.body.City,req.body.Infected],(err,response)=>{
+    con.query(sql,[req.body.PersonID,req.body.Address,req.body.City,req.body.State,req.body.Infected],(err,response)=>{
         if(err) {
             console.log(err)
-            res.send(false);
+            res.send(err);
         }    
 
         res.send(true);
     })
 })
 
+
+
 app.post("/addTravelDetails",(req,res)=>{
     console.log(req.body);
     locationArray = req.body.LocationArray;
     for(var i=0;i<locationArray.length;i++){
         var location = locationArray[i];
-        sql = "Insert Into Travel_Details values(?,?,?,?,?,?)"
-        con.query(sql,[location.PersonID,location.Location,location.Latitude,location.Longitude,location.FromTime,location.ToTime],(err,response)=>{
+        sql = "Insert Into Travel_Details values(?,?,?,?,?,?,?)"
+        con.query(sql,[location.PersonID,location.Location,location.Latitude,location.Longitude,location.FromTime,location.ToTime,location.Mode_of_Transportation],(err,response)=>{
             if(err){
                 console.log(err)
-                res.send(false);    
+                res.send(err);    
             }    
         })
     }
