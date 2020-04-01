@@ -32,6 +32,15 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+
+//karnataka boundary
+    var src = 'https://www.dropbox.com/s/6ydemc0pydbmgr0/karnaraka.kml?dl=1';
+    var kmlLayer = new google.maps.KmlLayer(src, {
+    suppressInfoWindows: true,
+    preserveViewport: false,
+    map: map
+    });
+
     //grouping data for line
     let group = data.reduce((r, a) => {
         // console.log("a", a);
