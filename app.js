@@ -52,7 +52,7 @@ app.post("/onSubmit",(req,res)=>{
 app.post('/addPersonDetails',(req,res)=>{
     console.log(req.body);
     sql = "Insert Into Person_Details values(?,?,?,?,?)"
-    con.query(sql,[req.body.PersonID,req.body.PersonName,req.body.Address,req.body.City,req.body.Infected],(err,response)=>{
+    con.query(sql,[req.body.PersonID,req.body.Address,req.body.City,req.body.State,req.body.Infected],(err,response)=>{
         if(err) {
             console.log(err)
             res.send(false);
@@ -64,11 +64,13 @@ app.post('/addPersonDetails',(req,res)=>{
 
 app.post("/addTravelDetails",(req,res)=>{
     console.log(req.body);
+    
     locationArray = req.body.LocationArray;
     for(var i=0;i<locationArray.length;i++){
         var location = locationArray[i];
-        sql = "Insert Into Travel_Details values(?,?,?,?,?,?)"
-        con.query(sql,[location.PersonID,location.Location,location.Latitude,location.Longitude,location.FromTime,location.ToTime],(err,response)=>{
+        //console.log(location.ModeOfTransport);
+        sql = "Insert Into Travel_Details values(?,?,?,?,?,?,?)"
+        con.query(sql,[location.PersonID,location.Location,location.Latitude,location.Longitude,location.FromTime,location.ToTime,location.ModeOfTransport],(err,response)=>{
             if(err){
                 console.log(err)
                 res.send(false);    
