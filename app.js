@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json())
-
+app.use(express.static("FrontEnd"));
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -49,8 +49,6 @@ app.post("/onSubmit",(req,res)=>{
     res.send("Success");
 })
 
-
-
 app.post('/addPersonDetails',(req,res)=>{
     console.log(req.body);
     sql = "Insert Into Person_Details values(?,?,?,?,?)"
@@ -63,8 +61,6 @@ app.post('/addPersonDetails',(req,res)=>{
         res.send(true);
     })
 })
-
-
 
 app.post("/addTravelDetails",(req,res)=>{
     console.log(req.body);
@@ -83,7 +79,7 @@ app.post("/addTravelDetails",(req,res)=>{
     res.send(true);    
 })
 
-app.get("/getTravelData",(req,res)=>{
+/*app.get("/getTravelData",(req,res)=>{
     sql = "select * from Person_Details Natural JOIN Travel_Details"
     con.query(sql,(err,response)=>{
         if(err) {
@@ -93,7 +89,53 @@ app.get("/getTravelData",(req,res)=>{
         res.send(response);
     })    
 })
+*/
 
+//Added by Sameer
+
+app.post("/getTravelData",(req,res)=>{
+    sql = `SELECT * FROM Person_Details Natural JOIN Travel_Details
+           WHERE (From_Time BETWEEN ? AND ?) OR 
+           (To_Time BETWEEN ? AND ?) OR
+           (? BETWEEN From_Time AND To_Time)`;
+
+    //console.log("[\n"+req.body.startdate+"\n]")
+
+    con.query(sql,[req.body.startdate, req.body.enddate, req.body.startdate, req.body.enddate, req.body.startdate],(err,response)=>{
+        if(err) {
+            console.log(err)
+            console.log("Error");
+            res.send(false);
+        }
+        //console.log(sql);
+        console.log(response);
+        console.log(response[0]);
+        var cur = response[0];
+        var d = new Date(cur.From_Time);
+        console.log(d.toLocaleString());    
+        console.log(d.toLocaleDateString());    
+        console.log(d.toString());
+
+        response.forEach((d)=>{
+            d.From_Time = new Date(d.From_Time).toLocaleString();
+            d.To_Time = new Date(d.To_Time).toLocaleString();
+        })
+        console.log(response);
+        res.send(response);
+    })    
+})
+
+app.get("/",(req,res)=>{
+    res.send("I am working");
+})
+
+app.get("/showMap",(req,res)=>{
+    res.sendFile(__dirname + '/FrontEnd/showMap.html');
+})
+
+app.get("/addPerson",(req,res)=>{
+    res.sendFile(__dirname + '/FrontEnd/addPerson.html');
+})
 
 app.listen(3000,()=>{
     console.log("Server started on port 3000");
