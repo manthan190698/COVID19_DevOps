@@ -53,12 +53,17 @@
         </div>
         <div class="col">
             <div class="form-group">
+                <input type="text" id="dataVar" value="Actual Data">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
                 <!-- <label for="datetimepicker">To:</label> -->
                 <button type="button" class="btn btn-primary" onclick="plotTracks()">Plot Tracks</button>
             </div>
         </div>
     </div>
-
+    <div class="btn-primary" onclick="resolveMarkerDisplay()">Shift Markers</div>
     <div id="map_canvas"></div>
     </div>  
   </div>
